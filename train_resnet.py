@@ -68,6 +68,7 @@ def main():
     parser.add_argument('--weight-decay', type=float, default=1e-4)
     parser.add_argument('--model_name', type=str, default='resnet18',choices=['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152'])
     parser.add_argument('--noise_level', type=float, default=0.2)
+    parser.add_argument('--optimizer', type=str, default='sgd', choices=['sgd', 'adam','adamw'])
 
 
     args = parser.parse_args()
@@ -78,8 +79,9 @@ def main():
     weight_decay = args.weight_decay
     noise_level = args.noise_level
     model_name = args.model_name
+    optimizer = args.optimizer
 
-    EXPIREMENT_NAME = f'{model_name}_noise_{noise_level}_epochs_{epochs}_lr_{lr}_momentum_{momentum}_weight_decay_{weight_decay}'
+    EXPIREMENT_NAME = f'{model_name}_noise_{noise_level}_epochs_{epochs}_lr_{lr}_momentum_{momentum}_weight_decay_{weight_decay}_optimizer_{optimizer}'
     os.makedirs(EXPIREMENT_NAME, exist_ok=True)
 
     # Load CIFAR-10 dataset
@@ -102,10 +104,17 @@ def main():
     net2 = get_model_from_torchvision(model_name)
     net2 = net2.to(device)
 
-
-    optimizer1 = optim.SGD(net1.parameters(), lr=lr, momentum=momentum,weight_decay=weight_decay)
-    optimizer2 = optim.SGD(net2.parameters(), lr=lr, momentum=momentum,weight_decay=weight_decay)
-
+    if optimizer == 'sgd':
+        optimizer1 = optim.SGD(net1.parameters(), lr=lr, momentum=momentum,weight_decay=weight_decay)
+        optimizer2 = optim.SGD(net2.parameters(), lr=lr, momentum=momentum,weight_decay=weight_decay)
+    elif optimizer == 'adam':
+        optimizer1 = optim.Adam(net1.parameters(), lr=lr,weight_decay=weight_decay)
+        optimizer2 = optim.Adam(net2.parameters(), lr=lr,weight_decay=weight_decay)
+    elif optimizer == 'adamw':
+        optimizer1 = optim.AdamW(net1.parameters(), lr=lr,weight_decay=weight_decay)
+        optimizer2 = optim.AdamW(net2.parameters(), lr=lr,weight_decay=weight_decay)
+    else:
+        raise ValueError('Invalid optimizer')
     criterion = torch.nn.CrossEntropyLoss()
 
     # Train both networks and compute discrepancies
@@ -148,29 +157,46 @@ def main():
     # Save the discrepancies to a file
     np.save(f'{EXPIREMENT_NAME}/l2_discrepancies.npy', outputs_discrepancies)
     np.save(f'{EXPIREMENT_NAME}/classification_discrepancies.npy', classification_discrepancies)
-    np.save(f'{EXPIREMENT_NAME}weight_discrepancies.npy', weight_discrepancies) 
+    np.save(f'{EXPIREMENT_NAME}/jsd_discrepancies.npy', jsd_discrepancies)
+    np.save(f'{EXPIREMENT_NAME}/losses1.npy', losses1)
+    np.save(f'{EXPIREMENT_NAME}/losses2.npy', losses2) 
 
     # Save the figures
     plt.figure()
-    plt.plot(epoch,moving_average(classification_discrepancies),marker='-')
+    plt.plot(moving_average(classification_discrepancies),marker='<')
     plt.xlabel('Epoch')
     plt.ylabel('Classification Discrepancy')
     plt.title('Classification Discrepancy')
     plt.savefig(f'{EXPIREMENT_NAME}/classification_discrepancy.png')
 
     plt.figure()
-    plt.plot(epoch,moving_average(jsd_discrepancies),marker='-')
+    plt.plot(moving_average(jsd_discrepancies),marker='<')
     plt.xlabel('Epoch')
     plt.ylabel('JSD Discrepancy')
     plt.title('JSD Discrepancy')
     plt.savefig(f'{EXPIREMENT_NAME}/jsd_discrepancy.png')
 
     plt.figure()
-    plt.plot(epoch,moving_average(outputs_discrepancies),marker='-')
+    plt.plot(moving_average(outputs_discrepancies),marker='<')
     plt.xlabel('Epoch')
     plt.ylabel('Outputs Discrepancy')
     plt.title('Outputs Discrepancy')
     plt.savefig(f'{EXPIREMENT_NAME}/outputs_discrepancy.png')
+
+    plt.figure()
+    plt.plot(losses1,marker='<')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Loss for Net1')
+    plt.savefig(f'{EXPIREMENT_NAME}/losses1.png')
+
+    plt.figure()
+    plt.plot(losses2,marker='<')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Loss for Net2')
+    plt.savefig(f'{EXPIREMENT_NAME}/losses2.png')
+    
 
 
 if __name__ == '__main__':

@@ -1,1 +1,1 @@
-python train_resnet.py --epoch=30 --model_name=resnet18 
+nohup python train_resnet.py --epoch=50 --model_name=resnet101  --noise_level=0.5 --optimizer=adamw &

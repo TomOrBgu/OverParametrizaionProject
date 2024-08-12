@@ -91,4 +91,4 @@ def compute_dispersion(net1, net2, loader):
     classifcation_discrepancy /= num_samples
     jsd_dipcepancy /= num_samples
     l2_discrepancy /= num_samples
-    return classifcation_discrepancy, jsd_dipcepancy, l2_discrepancy
+    return classifcation_discrepancy.detach().cpu().numpy(), jsd_dipcepancy, l2_discrepancy.detach().cpu().numpy()
