@@ -1,0 +1,106 @@
+--- Epoch 1 ---
+Epoch 1, Classification Discrepancy: 0.8975, JSD: 0.0314,outputs_discrepancy:1.6391239166259766
+Epoch 1, Loss: 2.3854
+Epoch 1, Loss: 2.4096
+--- Epoch 2 ---
+Epoch 2, Classification Discrepancy: 0.5474, JSD: 0.0364,outputs_discrepancy:1.4260809421539307
+Epoch 2, Loss: 2.1430
+Epoch 2, Loss: 2.1290
+--- Epoch 3 ---
+Epoch 3, Classification Discrepancy: 0.4087, JSD: 0.0456,outputs_discrepancy:1.4488531351089478
+Epoch 3, Loss: 2.0780
+Epoch 3, Loss: 2.0781
+--- Epoch 4 ---
+Epoch 4, Classification Discrepancy: 0.4706, JSD: 0.0470,outputs_discrepancy:1.5114972591400146
+Epoch 4, Loss: 2.0387
+Epoch 4, Loss: 2.0350
+--- Epoch 5 ---
+Epoch 5, Classification Discrepancy: 0.4597, JSD: 0.0449,outputs_discrepancy:1.4056155681610107
+Epoch 5, Loss: 1.9924
+Epoch 5, Loss: 2.0002
+--- Epoch 6 ---
+Epoch 6, Classification Discrepancy: 0.4257, JSD: 0.1024,outputs_discrepancy:2.126868963241577
+Epoch 6, Loss: 1.9583
+Epoch 6, Loss: 1.9615
+--- Epoch 7 ---
+Epoch 7, Classification Discrepancy: 0.3837, JSD: 0.0478,outputs_discrepancy:1.5006036758422852
+Epoch 7, Loss: 1.9144
+Epoch 7, Loss: 1.9227
+--- Epoch 8 ---
+Epoch 8, Classification Discrepancy: 0.4020, JSD: 0.0517,outputs_discrepancy:1.5483146905899048
+Epoch 8, Loss: 1.8715
+Epoch 8, Loss: 1.9027
+--- Epoch 9 ---
+Epoch 9, Classification Discrepancy: 0.3805, JSD: 0.0544,outputs_discrepancy:1.630005121231079
+Epoch 9, Loss: 1.8413
+Epoch 9, Loss: 1.8565
+--- Epoch 10 ---
+Epoch 10, Classification Discrepancy: 0.3742, JSD: 0.0581,outputs_discrepancy:1.709472417831421
+Epoch 10, Loss: 1.7811
+Epoch 10, Loss: 1.8015
+--- Epoch 11 ---
+Epoch 11, Classification Discrepancy: 0.3781, JSD: 0.0693,outputs_discrepancy:1.878481149673462
+Epoch 11, Loss: 1.7171
+Epoch 11, Loss: 1.7489
+--- Epoch 12 ---
+Epoch 12, Classification Discrepancy: 0.3688, JSD: 0.0877,outputs_discrepancy:2.129239082336426
+Epoch 12, Loss: 1.6441
+Epoch 12, Loss: 1.6866
+--- Epoch 13 ---
+Epoch 13, Classification Discrepancy: 0.3774, JSD: 0.1012,outputs_discrepancy:2.2967350482940674
+Epoch 13, Loss: 1.5644
+Epoch 13, Loss: 1.6171
+--- Epoch 14 ---
+Epoch 14, Classification Discrepancy: 0.3961, JSD: 0.1373,outputs_discrepancy:2.780863046646118
+Epoch 14, Loss: 1.4869
+Epoch 14, Loss: 1.5338
+--- Epoch 15 ---
+Epoch 15, Classification Discrepancy: 0.3896, JSD: 0.1551,outputs_discrepancy:3.107496738433838
+Epoch 15, Loss: 1.3887
+Epoch 15, Loss: 1.4405
+--- Epoch 16 ---
+Epoch 16, Classification Discrepancy: 0.3865, JSD: 0.1892,outputs_discrepancy:3.4891815185546875
+Epoch 16, Loss: 1.2743
+Epoch 16, Loss: 1.3504
+--- Epoch 17 ---
+Epoch 17, Classification Discrepancy: 0.3707, JSD: 0.2047,outputs_discrepancy:3.7915351390838623
+Epoch 17, Loss: 1.1863
+Epoch 17, Loss: 1.2597
+--- Epoch 18 ---
+Epoch 18, Classification Discrepancy: 0.3533, JSD: 0.2322,outputs_discrepancy:4.314305305480957
+Epoch 18, Loss: 1.0741
+Epoch 18, Loss: 1.1436
+--- Epoch 19 ---
+Epoch 19, Classification Discrepancy: 0.3654, JSD: 0.2973,outputs_discrepancy:5.046722412109375
+Epoch 19, Loss: 0.9948
+Epoch 19, Loss: 1.0390
+--- Epoch 20 ---
+Epoch 20, Classification Discrepancy: 0.3181, JSD: 0.2789,outputs_discrepancy:5.267622470855713
+Epoch 20, Loss: 0.8830
+Epoch 20, Loss: 0.9410
+--- Epoch 21 ---
+Epoch 21, Classification Discrepancy: 0.2998, JSD: 0.3132,outputs_discrepancy:5.977497577667236
+Epoch 21, Loss: 0.7822
+Epoch 21, Loss: 0.8378
+--- Epoch 22 ---
+Epoch 22, Classification Discrepancy: 0.2762, JSD: 0.3433,outputs_discrepancy:6.8413166999816895
+Epoch 22, Loss: 0.7108
+Epoch 22, Loss: 0.7585
+--- Epoch 23 ---
+Epoch 23, Classification Discrepancy: 0.2438, JSD: 0.3326,outputs_discrepancy:7.108108043670654
+Epoch 23, Loss: 0.6353
+Epoch 23, Loss: 0.6743
+--- Epoch 24 ---
+Epoch 24, Classification Discrepancy: 0.2269, JSD: 0.3547,outputs_discrepancy:7.640202522277832
+Epoch 24, Loss: 0.5780
+Epoch 24, Loss: 0.5826
+--- Epoch 25 ---
+Epoch 25, Classification Discrepancy: 0.2335, JSD: 0.3972,outputs_discrepancy:8.507054328918457
+Epoch 25, Loss: 0.4992
+Epoch 25, Loss: 0.5357
+--- Epoch 26 ---
+Epoch 26, Classification Discrepancy: 0.2080, JSD: 0.3917,outputs_discrepancy:8.992774963378906
+Epoch 26, Loss: 0.4468
+Epoch 26, Loss: 0.4731
+--- Epoch 27 ---
+Epoch 27, Classification Discrepancy: 0.1778, JSD: 0.3607,outputs_discrepancy:9.232218742370605

@@ -1,0 +1,1 @@
+python train_resnet.py --epoch=30 --model_name=resnet18 
