@@ -22,21 +22,37 @@ def add_label_noise(dataset, noise_level=0.2):
     for idx, noisy_label in zip(indices, noisy_labels):
         dataset.targets[idx] = noisy_label
 
-def train(net, optimizer, epoch, trainloader,criterion):
-    net.train()
-    running_loss = 0.0
+def train(net1,net2, optimizer_1,optimizer_2, epoch, trainloader,criterion):
+    net1.train()
+    net2.train()
+    running_loss_1 = 0.0
+    running_loss_2 = 0.0
     for batch_idx, (inputs, targets) in enumerate(trainloader):
         inputs, targets = inputs.to(device), targets.to(device)
-        optimizer.zero_grad()
-        outputs = net(inputs)
-        loss = criterion(outputs, targets)
-        loss.backward()
-        optimizer.step()
-        running_loss += loss.item()
+        optimizer_1.zero_grad()
+        outputs_1 = net1(inputs)
+        loss_1 = criterion(outputs_1, targets)
+        loss_1.backward()
+        optimizer_1.step()
+        running_loss_1 += loss_1.item()
 
-    avg_loss = running_loss / len(trainloader)
-    print(f'Epoch {epoch+1}, Loss: {avg_loss:.4f}')
-    return avg_loss
+        inputs = inputs.detach()
+        targets = targets.detach()
+        inputs, targets = inputs.to(device), targets.to(device)
+
+        optimizer_2.zero_grad()
+        outputs_2 = net2(inputs)
+        loss_2 = criterion(outputs_2, targets)
+        loss_2.backward()
+        optimizer_2.step()
+        running_loss_2 += loss_2.item()
+
+
+    avg_loss_1 = running_loss_1 / len(trainloader)
+    avg_loss_2 = running_loss_2 / len(trainloader)
+    print(f'Epoch {epoch+1},Net1, Loss: {avg_loss_1:.4f}')
+    print(f'Epoch {epoch+1},Net2, Loss: {avg_loss_2:.4f}')
+    return avg_loss_1 , avg_loss_2
 
 def get_model_from_torchvision(model_name):
     if model_name == 'resnet18':
@@ -148,8 +164,7 @@ def main():
 
         #print(f'Epoch {epoch+1}, Discrepancy: {discrepancy:.4f}')
 
-        loss1 = train(net1, optimizer1, epoch, trainloader,criterion)
-        loss2 = train(net2, optimizer2, epoch, trainloader,criterion)
+        loss1 , loss2 = train(net1,net2 ,optimizer1,optimizer2 ,epoch, trainloader,criterion)
 
         losses1.append(loss1)
         losses2.append(loss2)
