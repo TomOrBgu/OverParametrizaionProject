@@ -63,7 +63,13 @@ def compute_jsd_discrepancy(output1, output2):
     # Calculate the Jensen-Shannon Divergence
     m = 0.5 * (outputs1 + outputs2)
     jsd = 0.5 * (F.kl_div(outputs1.log(), m, reduction='sum') + F.kl_div(outputs2.log(), m, reduction='sum'))
-    return jsd.item()
+    return jsd
+
+def compute_softmax_l2_discrepancy(output1, output2,print_last=False):
+    if print_last: # print the last output, only the 3 first batch
+        print(F.softmax(output1, dim=1)[0:3])
+        print(F.softmax(output2, dim=1)[0:3])
+    return torch.sum(torch.norm(F.softmax(output1, dim=1) - F.softmax(output2, dim=1), p=2, dim=1))
 
 
 
@@ -73,12 +79,13 @@ def compute_l2_discrepancy(outputs1, outputs2):
     return torch.sum(torch.norm(outputs1-outputs2,p=2,dim=1))
 
 
-def compute_dispersion(net1, net2, loader):
+def compute_dispersion(net1, net2, loader,print_last=False):
     net1.eval()
     net2.eval()
     classifcation_discrepancy = 0.0
     jsd_dipcepancy = 0.0
     l2_discrepancy = 0.0
+    softmax_l2_discrepancy = 0.0
     num_samples = len(loader.dataset)
     with torch.no_grad():
         for batch_idx, (inputs, _) in enumerate(loader):
@@ -88,7 +95,14 @@ def compute_dispersion(net1, net2, loader):
             classifcation_discrepancy += compute_classification_discrepancy(outputs1, outputs2)
             jsd_dipcepancy += compute_jsd_discrepancy(outputs1, outputs2)
             l2_discrepancy += compute_l2_discrepancy(outputs1, outputs2)
+            # if its the one before the last batch, print the last output
+            if print_last and batch_idx == len(loader)-2:
+                softmax_l2_discrepancy += compute_softmax_l2_discrepancy(outputs1, outputs2,True)
+            else:
+                softmax_l2_discrepancy += compute_softmax_l2_discrepancy(outputs1, outputs2)
+
     classifcation_discrepancy /= num_samples
     jsd_dipcepancy /= num_samples
     l2_discrepancy /= num_samples
-    return classifcation_discrepancy.detach().cpu().numpy(), jsd_dipcepancy, l2_discrepancy.detach().cpu().numpy()
+    softmax_l2_discrepancy /= num_samples
+    return classifcation_discrepancy.detach().cpu().numpy(), jsd_dipcepancy.detach().cpu().numpy(), l2_discrepancy.detach().cpu().numpy(), softmax_l2_discrepancy.detach().cpu().numpy()

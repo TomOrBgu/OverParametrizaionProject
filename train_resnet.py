@@ -178,14 +178,18 @@ def main():
 
     # Save the figures
     plt.figure()
-    plt.plot(moving_average(classification_discrepancies),marker='<')
+    # plt.plot(moving_average(classification_discrepancies),marker='<')
+    # load npy file
+    classification_discrepancies = np.load(f'{EXPIREMENT_NAME}/classification_discrepancies.npy')
+    plt.plot(classification_discrepancies,marker='<')
+
     plt.xlabel('Epoch')
     plt.ylabel('Classification Discrepancy')
     plt.title('Classification Discrepancy')
     plt.savefig(f'{EXPIREMENT_NAME}/classification_discrepancy.png')
 
     plt.figure()
-    plt.plot(moving_average(jsd_discrepancies),marker='<')
+    plt.plot(jsd_discrepancies,marker='<')
     plt.xlabel('Epoch')
     plt.ylabel('JSD Discrepancy')
     plt.title('JSD Discrepancy')
