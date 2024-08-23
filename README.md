@@ -11,3 +11,8 @@ To plot multiple resnet's at the same graph, use "train_resnet2.py"
 train_resnet2.py --noise_level=0.3 --dataset=cifar100 --lr=0.01 --weight_decay=5e-4 --momentum=0.9 --epochs=200 --batch_size=128
 
 To intiate both networks with very small epsilon between them, "train_resnet3.py"
+
+
+OverParamFinalProject.ipynb is expirement-playground notebook.
+
+Other files are some intermidate results or utilites.
